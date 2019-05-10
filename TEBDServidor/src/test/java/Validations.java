@@ -1,6 +1,5 @@
 import org.junit.*;
 import org.w3c.dom.*;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,7 +11,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
 
 import static org.junit.Assert.*;
 
@@ -58,12 +56,6 @@ public class Validations {
         transformer.transform(source, result);
 
         assertEquals("3", this.docResponse.getElementsByTagName("retorno").item(0).getTextContent());
-
-    }
-
-    @Test
-    public void xmlIsValid() throws SAXException, IOException {
-        assertEquals(HistoricValidator.validXML("historico.xml"), 0);
     }
 
     @Test

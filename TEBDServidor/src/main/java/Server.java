@@ -4,7 +4,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -171,31 +170,25 @@ public class Server {
 
                         transformer.transform(source, result);
 
-                        int resultadoValidacaoXML = HistoricValidator.validXML("historico_novo.xml");
+                        HistoricValidator.validXML("historico_novo.xml");
 
-                        if(resultadoValidacaoXML == 0){
-                            this.docHistorico = this.builder.parse(new File("historico_novo.xml"));
-                            this.docHistorico.normalize();
+                        this.docHistorico = this.builder.parse(new File("historico_novo.xml"));
+                        this.docHistorico.normalize();
 
-                            String cpf = this.docHistorico.getElementsByTagName("cpf").item(0).getTextContent();
-                            String nome = this.docHistorico.getElementsByTagName("nome").item(0).getTextContent();
-                            String cr = this.docHistorico.getElementsByTagName("crMedio").item(0).getTextContent();
+                        String cpf = this.docHistorico.getElementsByTagName("cpf").item(0).getTextContent();
+                        String nome = this.docHistorico.getElementsByTagName("nome").item(0).getTextContent();
+                        String cr = this.docHistorico.getElementsByTagName("crMedio").item(0).getTextContent();
 
-                            Node universidadeData = this.docHistorico.getElementsByTagName("universidade").item(0);
-                            NodeList uniDataList = universidadeData.getChildNodes();
+                        Node universidadeData = this.docHistorico.getElementsByTagName("universidade").item(0);
+                        NodeList uniDataList = universidadeData.getChildNodes();
 
-                            String nomeUniversidade = uniDataList.item(1).getTextContent();
+                        String nomeUniversidade = uniDataList.item(1).getTextContent();
 
-                            int search = this.listaCandidatos.addCandidato(nome, nomeUniversidade, cpf, Float.parseFloat(cr));
+                        int search = this.listaCandidatos.addCandidato(nome, nomeUniversidade, cpf, Float.parseFloat(cr));
 
-                            this.gerarXmlResponse(search);
+                        this.gerarXmlResponse(search);
 
-                            this.sendResponse();
-                        } else{
-                            this.gerarXmlResponse(resultadoValidacaoXML);
-
-                            this.sendResponse();
-                        }
+                        this.sendResponse();
                     } catch(TransformerException e){
                         System.err.println(e);
                     }
@@ -215,7 +208,6 @@ public class Server {
                     } catch(SAXParseException e){
                         System.err.println(e);
                     }
-
                 } else{
                     try{
                         this.gerarXmlResponse(-1);
@@ -225,10 +217,28 @@ public class Server {
                     }
                 }
             } catch(IOException e){
+                try{
+                    this.gerarXmlResponse(3);
+                } catch(TransformerException i){
+
+                } catch(IOException i){
+
+                } catch(SAXException i){
+
+                }
                 System.err.println(e);
             } catch(ParserConfigurationException e){
                 System.err.println(e);
             } catch(SAXException e){
+                try{
+                    this.gerarXmlResponse(2);
+                } catch(TransformerException i){
+
+                } catch(IOException i){
+
+                } catch(SAXException i){
+
+                }
                 System.err.println(e);
             }
         }
