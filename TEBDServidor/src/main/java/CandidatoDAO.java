@@ -6,6 +6,10 @@ public class CandidatoDAO {
 
     public CandidatoDAO(){
         this.candidatos = new ArrayList<Candidato>();
+
+        this.candidatos.add((new Candidato("Fulano", "UFRJ", "111.111.111-52", Float.parseFloat("5.5"))));
+        this.candidatos.add((new Candidato("Beltrano", "UFF", "222.222.222-52", Float.parseFloat("7"))));
+        this.candidatos.add((new Candidato("Ciclano", "GREVERJ", "333.333.333-52", Float.parseFloat("8.0"))));
     }
 
     public int addCandidato(String nome, String universidade, String cpf, float cr){
@@ -15,7 +19,7 @@ public class CandidatoDAO {
             Candidato candidato = new Candidato(nome, universidade, cpf, cr);
             this.candidatos.add(candidato);
 
-            return 1;
+            return 0;
         } else{
             return -1;
         }

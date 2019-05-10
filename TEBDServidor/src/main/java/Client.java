@@ -13,7 +13,7 @@ public class Client {
 
         //Sending request to server
 
-        File requisition = new File("consultaStatus.xml");
+        File requisition = new File("submeter.xml");
         FileInputStream in = new FileInputStream(requisition);
 
         OutputStream out = client.getOutputStream();

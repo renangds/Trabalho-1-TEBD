@@ -186,11 +186,9 @@ public class Server {
 
                             String nomeUniversidade = uniDataList.item(1).getTextContent();
 
-                            int search = this.listaCandidatos.buscaCandidato(cpf);
+                            int search = this.listaCandidatos.addCandidato(nome, nomeUniversidade, cpf, Float.parseFloat(cr));
 
-                            this.listaCandidatos.addCandidato(nome, nomeUniversidade, cpf, Float.parseFloat(cr));
-
-                            this.gerarXmlResponse(0);
+                            this.gerarXmlResponse(search);
 
                             this.sendResponse();
                         } else{
@@ -206,8 +204,6 @@ public class Server {
                         System.out.println("Dados serão consultados");
 
                         String cpf = this.doc.getElementsByTagName("valor").item(0).getTextContent();
-
-                        System.out.println(cpf);
 
                         int valor = this.listaCandidatos.buscaCandidato(cpf);
 
